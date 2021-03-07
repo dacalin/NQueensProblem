@@ -1,0 +1,23 @@
+version: '3'
+
+
+services:
+  go:
+    build:
+      context: .
+      dockerfile: go.dockerfile
+    container_name: go-queens
+    restart: on-failure
+    volumes:
+      - .:/go/src/app
+    entrypoint: ['env', 'GOOS=darwin', 'GOARCH=amd64', 'go']
+
+  build:
+    build:
+      context: .
+      dockerfile: go.dockerfile
+    container_name: go-queens-build
+    restart: on-failure
+    volumes:
+      - .:/go/src/app
+    entrypoint: ['env', 'GOOS=darwin', 'GOARCH=amd64', 'go', 'build']
